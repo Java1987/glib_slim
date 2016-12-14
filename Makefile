@@ -10,7 +10,7 @@ CFLAGS += -g -fno-strict-aliasing -O2 -Wall -export-dynamic \
 
 LINKS += -g -lglib
 
-LIB_OBJS = gstrfunc.o 
+LIB_OBJS = gstrfuncs.o 
 
 PROGS = glib
 

@@ -602,7 +602,7 @@ void	 g_mem_check   (gpointer  mem);
 /* String utility functions
  */
 #define G_STR_DELIMITERS     "_-|> <."
-void	g_strdelimit		(gchar	     *string,
+gchar*	g_strdelimit		(gchar	     *string,
 				 const gchar *delimiters,
 				 gchar	      new_delimiter);
 gchar*	g_strdup		(const gchar *str);
@@ -817,8 +817,9 @@ guint g_str_aphash_with_length(gconstpointer v, guint len);
 guint g_direct_hash  (gconstpointer v);
 gint  g_direct_equal (gconstpointer v,
 		      gconstpointer v2);
-
+/**
 gulong g_mktime(GDateTime* time);
+*/
 
 
 typedef struct  
@@ -829,8 +830,8 @@ typedef struct
 
 typedef struct  
 {
-	gint width;
-	gint height;
+    gint width;
+    gint height;
 } gsize;
 
 typedef struct  

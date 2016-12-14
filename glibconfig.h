@@ -43,11 +43,11 @@ void g_log_init(char* log_file);
 int g_log_enabled(char* file, int line, char* fun, char* level);
 void g_log(char* fmt, ...);
 
-#define g_log_fatal if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "FATAL")) g_log
-#define g_log_error if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "ERROR")) g_log
-#define g_log_warn if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "WARN")) g_log
-#define g_log_info if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "INFO")) g_log
-#define g_log_debug if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "DEBUG")) g_log
+//#define g_log_fatal if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "FATAL")) g_log
+//#define g_log_error if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "ERROR")) g_log
+//#define g_log_warn if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "WARN")) g_log
+//#define g_log_info if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "INFO")) g_log
+//#define g_log_debug if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "DEBUG")) g_log
 
 #define g_log_fatal printf
 #define g_log_error printf
