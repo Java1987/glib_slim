@@ -7,7 +7,7 @@ gchar* g_strdelimit (gchar       *string,
               gchar        new_delim)
 {
   gchar *c;
-
+4
   g_return_val_if_fail (string != NULL, NULL);
 
   if (!delimiters)

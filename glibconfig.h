@@ -49,6 +49,8 @@ void g_log(char* fmt, ...);
 //#define g_log_info if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "INFO")) g_log
 //#define g_log_debug if (g_log_enabled(__FILE__, __LINE__, __FUNCTION__, "DEBUG")) g_log
 
+#define g_warning g_log_warn
+#define g_error g_log_error
 #define g_log_fatal printf
 #define g_log_error printf
 #define g_log_warn printf

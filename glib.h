@@ -557,7 +557,10 @@ gint	    g_hash_table_size		(GHashTable	*hash_table);
 /* Memory
  */
 
-#ifdef _WIN32
+#ifndef __FUNCTION__
+#define __FUNCTION__ ("__func__")
+#endif
+
 typedef void (*G_MEM_CALLBACK)(gint64 index, const char* __file__, const int __line__, const char* __func__);
 
 void g_mem_record_to(gstring path, G_MEM_CALLBACK callback);
@@ -566,34 +569,18 @@ void g_mem_record_end();
 
 gpointer g_mem_record_malloc(gulong size, const char* __file__, const int __line__, const char* __func__);
 gpointer g_mem_record_malloc0(gulong size, const char* __file__, const int __line__, const char* __func__);
-gpointer g_mem_record_realloc(gpointer mem,	gulong size, const char* __file__, const int __line__, const char* __func__);
+gpointer g_mem_record_realloc(gpointer mem, gulong size, const char* __file__, const int __line__, const char* __func__);
 void g_mem_record_free(gpointer mem, const char* __file__, const int __line__, const char* __func__);
 
 gpointer _g_malloc      (gulong	  size);
 gpointer _g_malloc0     (gulong	  size);
 gpointer _g_realloc     (gpointer  mem,	gulong	  size);
-void	 _g_free	    (gpointer  mem);
+void	 _g_free 	(gpointer  mem);
 
 #define g_malloc(size)     g_mem_record_malloc(size, __FILE__, __LINE__, __FUNCTION__)
 #define g_malloc0(size)     g_mem_record_malloc0(size, __FILE__, __LINE__, __FUNCTION__)
 #define g_realloc(mem, size)  g_mem_record_realloc(mem,	size, __FILE__, __LINE__, __FUNCTION__)
 #define g_free(mem) g_mem_record_free(mem, __FILE__, __LINE__, __FUNCTION__)
-#else
-#define g_mem_record_to()
-#define g_mem_record_begin()
-#define g_mem_record_end()
-
-gpointer _g_malloc      (gulong	  size);
-gpointer _g_malloc0     (gulong	  size);
-gpointer _g_realloc     (gpointer  mem,	gulong	  size);
-void	 _g_free	    (gpointer  mem);
-
-#define g_malloc(size)    _g_malloc(size)
-#define g_malloc0(size)   _g_malloc0(size)
-#define g_realloc(mem, size) _g_realloc(mem, size)
-#define g_free(mem) _g_free(mem)
-
-#endif
 
 void	 g_mem_profile (void);
 void	 g_mem_check   (gpointer  mem);
