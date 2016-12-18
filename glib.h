@@ -602,7 +602,7 @@ void	 g_mem_check   (gpointer  mem);
 /* String utility functions
  */
 #define G_STR_DELIMITERS     "_-|> <."
-gchar*	g_strdelimit		(gchar	     *string,
+void	g_strdelimit		(gchar	     *string,
 				 const gchar *delimiters,
 				 gchar	      new_delimiter);
 gchar*	g_strdup		(const gchar *str);
