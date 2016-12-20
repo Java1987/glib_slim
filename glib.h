@@ -3,10 +3,6 @@
 
 #include "glibconfig.h"
 
-#ifdef USE_DMALLOC
-#include "dmalloc.h"
-#endif
-
 
 /* Provide definitions for some commonly used macros.
  *  Some of them are only provided if they haven't already
@@ -75,18 +71,11 @@
  *  in order to avoid compiler warnings. (Makes the code neater).
  */
 
-#ifdef __DMALLOC_H__
-
-#define g_new(type,count)	 ALLOC(type,count)
-#define g_new0(type,count)	 CALLOC(type,count)
-
-#else /* __DMALLOC_H__ */
 
 #define g_new(type, count)	  \
     ((type *) g_malloc ((unsigned) sizeof (type) * (count)))
 #define g_new0(type, count)	  \
     ((type *) g_malloc0 ((unsigned) sizeof (type) * (count)))
-#endif /* __DMALLOC_H__ */
 
 #define g_mem_chunk_create(type, pre_alloc, alloc_type)	( \
   g_mem_chunk_new (#type " mem chunks (" #pre_alloc ")", \
@@ -556,30 +545,25 @@ gint	    g_hash_table_size		(GHashTable	*hash_table);
 
 /* Memory
  */
-
-#ifndef __FUNCTION__
-#define __FUNCTION__ ("__func__")
-#endif
-
-typedef void (*G_MEM_CALLBACK)(gint64 index, const char* __file__, const int __line__, const char* __func__);
+typedef void (*G_MEM_CALLBACK)(gint64 index, const char* _file, const int _line, const char* _func);
 
 void g_mem_record_to(gstring path, G_MEM_CALLBACK callback);
 void g_mem_record_begin();
 void g_mem_record_end();
 
-gpointer g_mem_record_malloc(gulong size, const char* __file__, const int __line__, const char* __func__);
-gpointer g_mem_record_malloc0(gulong size, const char* __file__, const int __line__, const char* __func__);
-gpointer g_mem_record_realloc(gpointer mem, gulong size, const char* __file__, const int __line__, const char* __func__);
-void g_mem_record_free(gpointer mem, const char* __file__, const int __line__, const char* __func__);
+gpointer g_mem_record_malloc(gulong size, const char* _file, const int _line, const char* _func);
+gpointer g_mem_record_malloc0(gulong size, const char* _file, const int _line, const char* _func);
+gpointer g_mem_record_realloc(gpointer mem, gulong size, const char* _file, const int _line, const char* _func);
+void g_mem_record_free(gpointer mem, const char* _file, const int _line, const char* _func);
 
 gpointer _g_malloc      (gulong	  size);
 gpointer _g_malloc0     (gulong	  size);
 gpointer _g_realloc     (gpointer  mem,	gulong	  size);
 void	 _g_free 	(gpointer  mem);
 
-#define g_malloc(size)     g_mem_record_malloc(size, __FILE__, __LINE__, __FUNCTION__)
-#define g_malloc0(size)     g_mem_record_malloc0(size, __FILE__, __LINE__, __FUNCTION__)
-#define g_realloc(mem, size)  g_mem_record_realloc(mem,	size, __FILE__, __LINE__, __FUNCTION__)
+#define g_malloc(size) g_mem_record_malloc(size, __FILE__, __LINE__, __FUNCTION__)
+#define g_malloc0(size) g_mem_record_malloc0(size, __FILE__, __LINE__, __FUNCTION__)
+#define g_realloc(mem, size) g_mem_record_realloc(mem,	size, __FILE__, __LINE__, __FUNCTION__)
 #define g_free(mem) g_mem_record_free(mem, __FILE__, __LINE__, __FUNCTION__)
 
 void	 g_mem_profile (void);

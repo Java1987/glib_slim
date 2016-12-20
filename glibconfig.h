@@ -35,6 +35,7 @@
 
 /* Define if you have the memmove function.  */
 #undef HAVE_MEMMOVE
+#define HAVE_MEMMOVE
 
 /* Define if you have the strcasecmp function.  */
 #undef HAVE_STRCASECMP
