@@ -12,7 +12,7 @@ LINKS += -g -lglib
 
 LIB_OBJS = gmem.o gstrfuncs.o 
 
-PROGS = glib
+PROGS = libglib.a gmain
 
 all: $(PROGS)
 
