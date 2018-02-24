@@ -17,8 +17,7 @@ gpointer g_mem_record_malloc0(gulong size, const char* _file, const int _line, c
 {
   // g_log_debug("file %s: line %d (%s): malloc %d", _file, _line, _func, size);
   gpointer ptr = malloc(size);
-  if (ptr)
-    memset(ptr, 0, size);
+  if (ptr) memset(ptr, 0, size);
   return ptr;
 }
 

@@ -669,43 +669,25 @@ gint g_string_parse_integer (GString *fstring, gchar chend, gint base);
 
 /* Resizable arrays
  */
-#define g_array_length(array,type) \
-     (((array)->len)/(gint)sizeof(type))
-#define g_array_append_val(array,type,val) \
-     g_rarray_append (array, (gpointer) &val, sizeof (type))
-#define g_array_append_vals(array,type,vals,nvals) \
-     g_rarray_append (array, (gpointer) vals, sizeof (type) * nvals)
-#define g_array_prepend_val(array,type,val) \
-     g_rarray_prepend (array, (gpointer) &val, sizeof (type))
-#define g_array_prepend_vals(array,type,vals,nvals) \
-     g_rarray_prepend (array, (gpointer) vals, sizeof (type) * nvals)
-#define g_array_set_length(array,type,length) \
-     g_rarray_set_length (array, length, sizeof (type))
-#define g_array_index(array,type,index) \
-     ((type*) array->data)[index]
-#define g_array_remove_index(array,type,index) \
-	 g_rarray_remove_index(array, sizeof(type), index)
-#define g_array_insert_val(array, index, type, val) \
-	 g_rarray_insert_val(array, index, (gpointer) &val, sizeof(type))
+#define g_array_new_with_type(type) \
+  g_array_new(sizeof(type))
 
-GArray* g_array_new	  (void);
+GArray* g_array_new	  (gint elt_size);
 void	g_array_free	  (GArray   *array);
-GArray* g_rarray_append	  (GArray   *array,
+GArray* g_array_append	  (GArray   *array,
 			   gpointer  data,
-			   gint	     size);
-GArray* g_rarray_prepend  (GArray   *array,
+			   gint	     len);
+GArray* g_array_prepend  (GArray   *array,
 			   gpointer  data,
-			   gint	     size);
-GArray* g_rarray_set_length (GArray   *array,
-			   gint	     length,
-			   gint	     size);
-GArray* g_rarray_remove_index (GArray   *array,
-			   gint	     size,
+			   gint	     len);
+GArray* g_array_set_length (GArray   *array,
+			   gint	     length);
+GArray* g_array_remove_index (GArray   *array,
 			   gint		 index);
-GArray* g_rarray_insert_val (GArray   *array,
+GArray* g_array_insert_val (GArray   *array,
 			   gint index,
-			   gpointer  data,
-			   gint      size);
+	  		   gpointer  data,
+			   gint len);
 
 /* Resizable pointer array.  This interface is much less complicated
  * than the above.  Add appends appends a pointer.  Remove fills any
