@@ -18,9 +18,12 @@ struct _GRealArray
 };
 
 #define g_array_elt_len(array,i) ((array)->elt_size * (i))
+
 #define g_array_elt_pos(array,i) ((array)->data + g_array_elt_len((array),(i)))
+
 #define g_array_elt_zero(array, pos, len)                               \
   (memset (g_array_elt_pos ((array), pos), 0,  g_array_elt_len ((array), len)))
+
 #define g_array_zero_terminate(array) G_STMT_START{                     \
   if ((array)->zero_terminated)                                         \
     g_array_elt_zero ((array), (array)->len, 1);                        \
