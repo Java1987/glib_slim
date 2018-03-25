@@ -2,14 +2,18 @@
 
 #include "glib.h"
 
-#define LEFT(i)  (((i) << 1) + 1)
-#define RIGHT(i) (((i) << 1) + 2)
 
 void swap(int *a, int *b) {
   int temp = *a;
   *a = *b;
   *b = temp;
 }
+
+/** 
+*   heap_sort start
+*/
+#define LEFT(i)  (((i) << 1) + 1)
+#define RIGHT(i) (((i) << 1) + 2)
 
 void max_heapify(int *array, int arr_len, int i) {
   if (i >= arr_len)
@@ -38,6 +42,8 @@ void build_max_heap(int *array, int arr_len) {
 }
 
 void heap_sort(int *array, int arr_len) {
+
+// 如果找前K大的数，使用该方法
 //  for (int i = 0; i < arr_len; i++) {
 //    build_max_heap(&array[i], arr_len - i);
 //  }
@@ -51,6 +57,36 @@ void heap_sort(int *array, int arr_len) {
     max_heapify(array, length, 0);
   }
 }
+/** 
+*   heap_sort end
+*/
+
+
+/** 
+*   quick_sort start
+*/
+void quick_sort(int *array, int length) {
+  if (length <= 1) 
+    return;
+
+  int pivot = length - 1;
+  int k = 0;
+  for (int j = 0; j < pivot; j++) {
+    if (array[j] < array[pivot]) {
+      swap(&array[j], &array[k]);
+      k++;
+    }
+  }
+  swap(&array[k], &array[pivot]);
+
+  quick_sort(&array[0], k - 1);
+  
+  quick_sort(&array[k + 1], length - k - 1);
+}
+/** 
+*   quick_sort end
+*/
+
 
 int main(int argc, char **argv) {
   g_log_debug("%s\n", "main entry");
@@ -70,9 +106,9 @@ int main(int argc, char **argv) {
   /* g_log_debug("garray len = %d\n", array->len); */
   /* g_array_free(array); */
 
-  int array[10] = {0, 1, 2, 3, 4, 5, 7, 9, 8, 6};
-  heap_sort(array, 10);
-  // swap(&array[0], &array[1]);
+  int array[10] = {10, 1, 2, 3, 4, 5, 7, 9, 8, 6};
+  // heap_sort(array, 10);
+  quick_sort(array, 10);
   for (int i = 0; i < 10; i++) {
       g_log_debug("a[%d] = %d ## ", i, array[i]);
     }
