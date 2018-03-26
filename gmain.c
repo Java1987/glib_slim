@@ -79,7 +79,7 @@ void quick_sort(int *array, int length) {
   }
   swap(&array[k], &array[pivot]);
 
-  quick_sort(&array[0], k - 1);
+  quick_sort(&array[0], k);
   
   quick_sort(&array[k + 1], length - k - 1);
 }
